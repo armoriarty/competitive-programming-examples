@@ -1,0 +1,18 @@
+1: ((a,c),m)
+	is an s-expression.
+
+2: (a,c,m)
+	is not an s-expression
+
+3: a
+	is an s-expression.
+
+4: C
+	is an s-expression.
+
+5: m
+	is an s-expression.
+
+6: (ac,m)
+	is not an s-expression
+
