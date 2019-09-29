@@ -12,8 +12,9 @@ public class prob4 {
         int count = 1;
         String inputString = in.nextLine();
         while(!inputString.equals("")){
+            String bracketString = compress(inputString);
             try{
-                process(inputString);
+                lint(bracketString, ' ');
                 out.printf("case %d: YES\n", count);
             } catch (Exception e){
                 out.printf("case %d: NO\n", count);
@@ -26,68 +27,41 @@ public class prob4 {
         out.close ();
     }
 
-    public static void process (String aString)throws Exception {
-
-        aString = parse(aString);
-        System.out.println(aString);
-        if(!aString.equals("")){
-            throw new Exception();
+    public static String compress(String aString){
+        String result = "";
+        for(int i = 0; i < aString.length(); i++){
+            // This is a really clever "set contains" operation being 
+            // disguised as an index lookup in a string
+            if("()[]{}".indexOf(aString.charAt(i)) >= 0){
+                result += aString.charAt(i);
+            }
         }
+        return result;
     }
 
-    public static String parse(String aString) throws Exception {
-        if(aString.equals("")){
-            return "";
-        }
-        // Pass any non-key character 
-        if(aString.charAt(0) != '{' && aString.charAt(0) != '}' && aString.charAt(0) != '(' && aString.charAt(0) != ')' && aString.charAt(0) != '[' && aString.charAt(0) != ']' && aString.charAt(0) != '\"'){
-            return parse(aString.substring(1));
-        }
-
-        if(aString.charAt(0) == '('){
-            System.out.println("(");
-            aString = parse(aString.substring(1));
-            if(aString.charAt(0) != ')'){
+    public static String lint(String aBracketString, char aChar) throws Exception {
+        if(aChar == ' '){
+            if(aBracketString.equals("")){
+                return "";
+            }
+            if("]})".indexOf(aBracketString.charAt(0)) >= 0){
                 throw new Exception();
             }
-            System.out.println(")");
-            aString = aString.substring(1);
+            aBracketString = lint(aBracketString.substring(1), aBracketString.charAt(0));
+            return lint(aBracketString, aChar);
         }
-
-        if(aString.charAt(0) == '{'){
-            System.out.println("{");
-            aString = parse(aString.substring(1));
-            if(aString.charAt(0) != '}'){
-                //System.out.println(aString);
-                throw new Exception();
-            }
-            System.out.println("}");
-            aString = aString.substring(1);
+        if(aBracketString.equals("")){
+            throw new Exception();
         }
-
-        if(aString.charAt(0) == '\"'){
-            System.out.println("\"");
-            aString = parse(aString.substring(1));
-            if(aString.charAt(0) != '\"'){
-                //System.out.println(aString);
-                throw new Exception();
-            }
-            System.out.println("\"");
-            aString = aString.substring(1);
+        if( aChar == '(' && "]}".indexOf(aBracketString.charAt(0)) >= 0 ||
+            aChar == '[' && ")}".indexOf(aBracketString.charAt(0)) >= 0 ||
+            aChar == '{' && "])".indexOf(aBracketString.charAt(0)) >= 0 ){
+            throw new Exception();
         }
-
-        if(aString.charAt(0) == '['){
-            System.out.println("[");
-            aString = parse(aString.substring(1));
-            if(aString.charAt(0) != ']'){
-                //System.out.println(aString);
-                throw new Exception();
-            }
-            System.out.println("]");
-            aString = aString.substring(1);
+        if("([{".indexOf(aBracketString.charAt(0)) >= 0){
+            aBracketString = lint(aBracketString.substring(1), aBracketString.charAt(0));
+            return lint(aBracketString, aChar);
         }
-        System.out.println("Returned");
-        System.out.println(aString);
-        return aString; 
+        return aBracketString.substring(1);
     }
 }
