@@ -3,43 +3,17 @@ import java.io.*;
 import java.util.*;
 
 public class prob7 {
-    private static LinkedList<stuff> q;
     private static Scanner in;
     private static PrintWriter out;
     private static char[][] maze;
-    private static int rows, columns;
-
-    private static class velocity {
-        public String direction;
-        public int duration;
-        public velocity(String aDirection, int aDur){
-            direction = aDirection;
-            duration = aDur;
-        }
-    }
+    private static LinkedList<stuff> q;
 
     private static class stuff { 
-        public int a, b;
-        public LinkedList<velocity> c;
-        
-        public stuff (int A, int B, velocity C) {
-            a = A; b = B;
-
-            c = new LinkedList<>();
-
-            if(C == null){
-                return;
-            }
-
-            if(c.isEmpty()){
-                c.add(C);
-            }
-
-            if(C.direction.equals(c.peekLast().direction)){
-                c.peekLast().duration++;
-            }
-            c.add(C);
-
+        public int row, column;
+        public String steps;
+        public stuff (int A, int B, String C) {
+            row = A; column = B;
+            steps = C;
         }
     }
 
@@ -49,21 +23,20 @@ public class prob7 {
         int count = 1;
 
         while(in.hasNext()){
-            rows = in.nextInt();
-            columns = in.nextInt();
-            System.out.printf("%d %d\r\n", rows, columns);
-            System.out.flush();
+            int rows = in.nextInt();
+            int columns = in.nextInt();
             in.nextLine();
-            int startRow = 0;
-            int startColumn = 0;
 
             if(rows == 0){
                 break;
             }
-            maze = new char[rows + 2][columns + 2];
 
+            int startRow = 0;
+            int startColumn = 0;
+
+            maze = new char[rows + 2][columns + 2];
             for(int i = 0; i < rows + 2; i++){
-                for (int j = 0; j < columns; j++){
+                for(int j = 0; j < columns + 2; j++){
                     maze[i][j] = '*';
                 }
             }
@@ -75,46 +48,32 @@ public class prob7 {
                     if(maze[i][j] == 'P'){
                         startRow = i;
                         startColumn = j;
-                        System.out.printf("%d %d\r\n\r\n", startRows, startColumns);
-                        System.out.flush();
-
                     }
                 }
             }
 
             out.printf("Case %d:\r\n", count);
             process(startRow, startColumn);
-            out.println();
             count++;
-
-
         }
-        
+
         in.close ();
         out.close ();
     }
 
-    private static void process(int startRow, int startColumn){
-
+    public static void process(int startRow, int startColumn){
         q = new LinkedList<>();
-        q.add(new stuff(startRow, startColumn, null));
+
+        q.add(new stuff(startRow, startColumn, ""));
 
         while(!q.isEmpty()){
             stuff now = q.remove();
-
-            int row = now.a;
-            int column = now.b;
-            LinkedList<velocity> path = now.c;
+            final int row = now.row;
+            final int column = now.column;
+            final String steps = now.steps;
 
             if(maze[row][column] == 'T'){
-                while(!path.isEmpty()){
-                    velocity step = path.remove();
-                    if(step.duration == 1){
-                        out.printf("Walk %d pace %s\r\n", step.duration, step.direction);
-                    } else {
-                        out.printf("Walk %d paces %s\r\n", step.duration, step.direction);
-                    }
-                }
+                printVictory(steps);
                 return;
             }
 
@@ -123,14 +82,43 @@ public class prob7 {
             }
             maze[row][column] = '*';
 
-            q.add(new stuff(row + 1, column, new velocity("north", 1 )));
-            q.add(new stuff(row - 1, column, new velocity("south", 1 )));
-            q.add(new stuff(row, column + 1, new velocity("east", 1 )));
-            q.add(new stuff(row, column - 1, new velocity("west", 1 )));
+            q.add(new stuff(row + 1, column, steps + "N"));
+            q.add(new stuff(row - 1, column, steps + "S"));
+            q.add(new stuff(row, column + 1, steps + "E"));
+            q.add(new stuff(row, column - 1, steps + "W"));
 
         }
 
         out.printf("Arrr!  There be no treasure here!\r\n");
+    }
 
+    public static void printVictory(String steps){
+        int i = 0;
+
+        while( i < steps.length()){
+            int size = 1;
+            String direction;
+            while((i + size) < steps.length() && steps.charAt(i) == steps.charAt(i + size) ){
+                size++;
+            }
+
+            if(steps.charAt(i) == 'N'){
+                direction = "north";
+            } else if(steps.charAt(i) == 'S'){
+                direction = "south";
+            } else if(steps.charAt(i) == 'E'){
+                direction = "east";
+            } else {
+                direction = "west";
+            }
+
+            if(size == 1){
+                out.printf("Walk %d pace %s.\r\n", size, direction);
+            } else {
+                out.printf("Walk %d paces %s.\r\n", size, direction);
+            }
+            i += size;
+        }
+        out.printf("\r\n");
     }
 }
