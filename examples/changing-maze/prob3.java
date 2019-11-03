@@ -25,6 +25,8 @@ public class prob3 {
         in = new Scanner (new File ("prob3.in"));
         out = new PrintWriter ("prob3.out");
 
+        int count = 1;
+
         while(in.hasNext()){
             rows = in.nextInt();
             columns = in.nextInt();
@@ -32,7 +34,6 @@ public class prob3 {
             if(rows == 0){
                 return;
             }
-            //System.out.printf("%d %d %d\n", rows, columns, levels);
             in.nextLine();
 
             maze = new int[rows + 2][columns + 2][levels];
@@ -43,8 +44,6 @@ public class prob3 {
                     }
                 }
             }
-            printMaze();
-            System.out.flush();
 
             for(int k = 0; k < levels; k++){
                 for(int i = 1 ; i <= rows; i++){
@@ -57,12 +56,11 @@ public class prob3 {
             }
 
             maze[1][1][0] = 1;
-            printMaze();
-            System.out.flush();
+
+            out.printf("Case %d:  ", count);
             process();
+            count++;
         }
-
-
 
         in.close ();
         out.close ();
@@ -75,14 +73,9 @@ public class prob3 {
 
         while(!futureMoves.isEmpty()){
             Position now = futureMoves.remove();
-            System.out.printf("%d %d %d\n\n", now.row, now.column, now.level);
-            printMaze();
-            System.out.println();
-            System.out.flush();
 
             if(now.row == rows && now.column == columns){
                 out.printf("Luke and Leia can escape in %d steps.\n", maze[now.row][now.column][now.level] - 1);
-                out.flush();
                 return;
             }
 
