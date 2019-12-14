@@ -1,0 +1,118 @@
+Me.java:4: error: class, interface, or enum expected
+public Class Me {
+       ^
+Me.java:6: error: class, interface, or enum expected
+    private static PrintWriter out;
+                   ^
+Me.java:7: error: class, interface, or enum expected
+    private static count;
+                   ^
+Me.java:9: error: class, interface, or enum expected
+    public static void main(String[] args) throws Exception {
+                  ^
+Me.java:11: error: class, interface, or enum expected
+        out = new PrintWriter("MyAttempt.out");
+        ^
+Me.java:13: error: class, interface, or enum expected
+        count = 1;
+        ^
+Me.java:14: error: class, interface, or enum expected
+        while (Process());
+        ^
+Me.java:16: error: class, interface, or enum expected
+        in.close();
+        ^
+Me.java:17: error: class, interface, or enum expected
+        out.close();
+        ^
+Me.java:19: error: class, interface, or enum expected
+    }
+    ^
+Me.java:21: error: class, interface, or enum expected
+    public static boolean Process() Throws Exception {
+                  ^
+Me.java:23: error: class, interface, or enum expected
+        int y = 0;
+        ^
+Me.java:24: error: class, interface, or enum expected
+        int dx = 1;
+        ^
+Me.java:25: error: class, interface, or enum expected
+        int dy = 0;
+        ^
+Me.java:26: error: class, interface, or enum expected
+        int xp = 0;
+        ^
+Me.java:27: error: class, interface, or enum expected
+        int yp = 0;
+        ^
+Me.java:29: error: class, interface, or enum expected
+        int area = 0;
+        ^
+Me.java:30: error: class, interface, or enum expected
+        String current = in.next();
+        ^
+Me.java:32: error: class, interface, or enum expected
+        if (t.equals("X")) return false;
+        ^
+Me.java:33: error: class, interface, or enum expected
+        x = Integer.parseInt(current);
+        ^
+Me.java:35: error: class, interface, or enum expected
+        while(true) {
+        ^
+Me.java:37: error: class, interface, or enum expected
+            if( current.equals("X")){
+            ^
+Me.java:39: error: class, interface, or enum expected
+            }
+            ^
+Me.java:43: error: class, interface, or enum expected
+                int ndy = -dx;
+                ^
+Me.java:44: error: class, interface, or enum expected
+                dx = ndx;
+                ^
+Me.java:45: error: class, interface, or enum expected
+                dy = ndy;
+                ^
+Me.java:46: error: class, interface, or enum expected
+            } else if (current.equals("R")) {
+            ^
+Me.java:49: error: class, interface, or enum expected
+                int ndy = dx;
+                ^
+Me.java:50: error: class, interface, or enum expected
+                dx = ndx;
+                ^
+Me.java:51: error: class, interface, or enum expected
+                dy = ndy;
+                ^
+Me.java:52: error: class, interface, or enum expected
+            } else {
+            ^
+Me.java:55: error: class, interface, or enum expected
+                xp = x;
+                ^
+Me.java:56: error: class, interface, or enum expected
+                yp = y;
+                ^
+Me.java:57: error: class, interface, or enum expected
+                x += dx * d;
+                ^
+Me.java:58: error: class, interface, or enum expected
+                y += dy * d;
+                ^
+Me.java:59: error: class, interface, or enum expected
+                area += (xp * y) - (yp * x);
+                ^
+Me.java:60: error: class, interface, or enum expected
+            }
+            ^
+Me.java:64: error: class, interface, or enum expected
+        return true;
+        ^
+Me.java:65: error: class, interface, or enum expected
+    }
+    ^
+39 errors

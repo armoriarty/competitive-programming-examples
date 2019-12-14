@@ -1,0 +1,26 @@
+prob3.java:37: error: cannot find symbol
+            alphabet.add(aString.substr(i, i + 1));
+                                ^
+  symbol:   method substr(int,int)
+  location: variable aString of type String
+prob3.java:52: error: cannot find symbol
+            if(visitedString.contains(candidate)){
+               ^
+  symbol:   variable visitedString
+  location: class prob3
+prob3.java:55: error: cannot find symbol
+            visitedString.add(candidate);
+            ^
+  symbol:   variable visitedString
+  location: class prob3
+prob3.java:59: error: cannot find symbol
+            queue.add(new Stuff(newCost, aString.substr(1, aString.length())));
+                                                ^
+  symbol:   method substr(int,int)
+  location: variable aString of type String
+prob3.java:60: error: cannot find symbol
+            queue.add(new Stuff(newCost, aString.substr(0, aString.length() - 1)));
+                                                ^
+  symbol:   method substr(int,int)
+  location: variable aString of type String
+5 errors
